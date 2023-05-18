@@ -1,63 +1,71 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
-import Rating from '../components/Rating'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import Meta from '../components/Meta'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  Form,
+} from "react-bootstrap";
+import Rating from "../components/Rating";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import Meta from "../components/Meta";
 import {
   listProductDetails,
   createProductReview,
-} from '../actions/productActions'
-import { addToCart } from '../actions/cartActions'
-import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+} from "../actions/productActions";
+import { addToCart } from "../actions/cartActions";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 
 const ProductScreen = ({ history, match }) => {
-  const [qty, setQty] = useState(1)
-  const [rating, setRating] = useState(0)
-  const [comment, setComment] = useState('')
+  const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
-  const dispatch = useDispatch()
-  const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-  const productReviewCreate = useSelector((state) => state.productReviewCreate)
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const {
     success: successProductReview,
     loading: loadingProductReview,
     error: errorProductReview,
-  } = productReviewCreate
+  } = productReviewCreate;
 
   useEffect(() => {
     if (successProductReview) {
-      setRating(0)
-      setComment('')
+      setRating(0);
+      setComment("");
     }
     if (!product._id || product._id !== match.params.id) {
-      dispatch(listProductDetails(match.params.id))
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
+      dispatch(listProductDetails(match.params.id));
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
-  }, [dispatch, match, successProductReview])
+  }, [dispatch, match, successProductReview]);
 
   const addToCartHandler = () => {
-    dispatch(addToCart(product._id, qty))
-    history.push('/cart')
-  }
+    dispatch(addToCart(product._id, qty));
+    history.push("/cart");
+  };
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(
       createProductReview(match.params.id, {
         rating,
         comment,
-      }),
-    )
-  }
-
+      })
+    );
+  };
+  console.log(product.rating);
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
@@ -81,7 +89,7 @@ const ProductScreen = ({ history, match }) => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Rating
-                    value={product.rating}
+                    value={product.rating / 10}
                     text={`${product.numReviews} reviews`}
                   />
                 </ListGroup.Item>
@@ -107,7 +115,7 @@ const ProductScreen = ({ history, match }) => {
                     <Row>
                       <Col>Status:</Col>
                       <Col>
-                        {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
+                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -127,7 +135,7 @@ const ProductScreen = ({ history, match }) => {
                                 <option key={x + 1} value={x + 1}>
                                   {x + 1}
                                 </option>
-                              ),
+                              )
                             )}
                           </Form.Control>
                         </Col>
@@ -177,10 +185,11 @@ const ProductScreen = ({ history, match }) => {
                     <Form onSubmit={submitHandler}>
                       <Form.Group controlId="rating">
                         <Form.Label>Rating</Form.Label>
+
                         <Form.Control
                           as="select"
                           value={rating}
-                          onChange={(e) => setRating(e.target.value)}
+                          onChange={(e) => setRating(Number(e.target.value))}
                         >
                           <option value="">Select...</option>
                           <option value="1">1 - Poor</option>
@@ -209,7 +218,7 @@ const ProductScreen = ({ history, match }) => {
                     </Form>
                   ) : (
                     <Message>
-                      Please <Link to="/login">sign in</Link> to write a review{' '}
+                      Please <Link to="/login">sign in</Link> to write a review{" "}
                     </Message>
                   )}
                 </ListGroup.Item>
@@ -219,7 +228,7 @@ const ProductScreen = ({ history, match }) => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default ProductScreen
+export default ProductScreen;
