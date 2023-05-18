@@ -1,33 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import FormContainer from "../components/FormContainer";
-import { login } from "../actions/userActions";
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Row, Col, Form, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import FormContainer from '../components/FormContainer'
+import { login } from '../actions/userActions'
 
 const LoginScreen = ({ history, location }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const dispatch = useDispatch()
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      history.push(redirect)
     }
-  }, [history, userInfo, redirect]);
+  }, [history, userInfo, redirect])
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(login(email, password));
+    e.preventDefault()
+    dispatch(login(email, password))
     // DISPATCH LOGIN
-  };
+  }
 
   return (
     <FormContainer>
@@ -44,7 +44,7 @@ const LoginScreen = ({ history, location }) => {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group controlId="password" className="mb-3">
           <Form.Label>Password </Form.Label>
           <Form.Control
             type="password"
@@ -60,14 +60,14 @@ const LoginScreen = ({ history, location }) => {
       <Row className="py-3">
         <Col>
           New Customer ?
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-            {" "}
+          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
+            {' '}
             Register
           </Link>
         </Col>
       </Row>
     </FormContainer>
-  );
-};
+  )
+}
 
-export default LoginScreen;
+export default LoginScreen

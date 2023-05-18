@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
-import { MDBFooter } from "mdb-react-ui-kit";
+import { MDBFooter } from 'mdb-react-ui-kit'
 export default function App() {
   return (
     <MDBFooter
       className="text-center text-lg-start text-muted text-light"
       style={{
-        backgroundColor: "#000",
+        backgroundColor: '#000',
       }}
     >
       <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom text-light">
@@ -31,7 +31,7 @@ export default function App() {
           </a>
         </div>
       </section>
-      <section style={{ padding: "2rem 0" }}>
+      <section style={{ padding: '2rem 0' }}>
         <div className="container text-center text-md-start mt-5">
           <div className="row mt-3">
             <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
@@ -62,7 +62,7 @@ export default function App() {
                 </Link>
               </p>
               <p className="text-white">
-                <Link to="/" className="text-reset">
+                <Link to="/search/laptop" className="text-reset">
                   Laptops
                 </Link>
               </p>
@@ -123,8 +123,8 @@ export default function App() {
       <div
         className="text-center p-4"
         style={{
-          backgroundColor: "rgba(0, 0, 0, 0.05)",
-          color: "rgb(173, 186, 199)",
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          color: 'rgb(173, 186, 199)',
         }}
       >
         © 2022 Copyright : &nbsp;
@@ -133,5 +133,5 @@ export default function App() {
         </Link>
       </div>
     </MDBFooter>
-  );
+  )
 }
