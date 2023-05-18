@@ -1,20 +1,21 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
-import SearchBox from './SearchBox'
-import { logout } from '../actions/userActions'
+import React from "react";
+import { Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import SearchBox from "./SearchBox";
+import { IoCartOutline } from "react-icons/io5";
+import { logout } from "../actions/userActions";
 
 const Header = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const logoutHandler = () => {
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
 
   return (
     <header>
@@ -29,7 +30,7 @@ const Header = () => {
             <Nav className="ml-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <i className="fas fa-shopping-cart"></i> Cart
+                  <IoCartOutline size={18} stroke="white" />
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
@@ -66,7 +67,7 @@ const Header = () => {
         </Container>
       </Navbar>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
